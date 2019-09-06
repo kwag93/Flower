@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="area">
+        <item>곽병호</item>
+        <item>바보</item>
+        <item>멍청이</item>
+        <item>해삼이</item>
+    </string-array>
+</resources>

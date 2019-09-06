@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="home"/>
+
+    <item
+        android:id="@+id/action_board"
+        android:enabled="true"
+        android:icon="@drawable/ic_assignment_black_24dp"
+        android:title="board"/>
+
+    <item
+        android:id="@+id/action_calculator"
+        android:enabled="true"
+        android:icon="@drawable/ic_exposure_black_24dp"
+        android:title="calculator"/>
+
+    <item
+        android:id="@+id/action_soldier"
+        android:enabled="true"
+        android:icon="@drawable/ic_access_time_black_24dp"
+        android:title="전역일 계산기"/>
+
+    <item
+        android:id="@+id/action_bus"
+        android:enabled="true"
+        android:icon="@drawable/ic_directions_bus_black_24dp"
+        android:title="버스"/>
+
+
+
+</menu>
