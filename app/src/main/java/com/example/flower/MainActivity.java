@@ -1,5 +1,6 @@
 package com.example.flower;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,12 +19,15 @@ public class MainActivity extends AppCompatActivity {
     private Fragment3 frag3;
     private Fragment4 frag4;
     private Fragment5 frag5;
+    public static Context FragmentContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FragmentContext = this;
 
         bottomNavigationView = findViewById(R.id.bottomNavi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
         frag4 = new Fragment4();
         frag5 = new Fragment5();
         setFrag(0); //첫 프레그먼트 화면
+
     }
 
-    private void setFrag(int n){
+    public void setFrag(int n){
 
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
@@ -88,4 +93,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 }

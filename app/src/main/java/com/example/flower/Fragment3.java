@@ -1,6 +1,7 @@
 package com.example.flower;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,11 +9,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -23,12 +27,18 @@ public class Fragment3 extends Fragment {
     private ImageButton pickDate;
     private TextView dateDisplay;
     int mYear, mMonth, mDay;
+    private ImageButton accountAdd;
     DatePicker mDateSetListener;
+    TextView AccountContext,AccountPrice;
+    ListView AccountList;
+    ArrayList<String> account_item_list;
+    ArrayAdapter<String> account_adapter;
 
     long now = System.currentTimeMillis();
     Date date = new Date(now);      // birthday 버튼의 초기화를 위해 date 객체와 SimpleDataFormat 사용
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String result = dateFormat.format(date);
+    private int RESULT_OK;
 
     private void UpdateNow(){
         dateDisplay.setText(String.format("%d/%d/%d", mYear, mMonth + 1, mDay));
@@ -39,8 +49,16 @@ public class Fragment3 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.frag3, container, false);
 
+        AccountList = (ListView) view.findViewById(R.id.account_list);
+        AccountList.setAdapter(account_adapter);
+        AccountList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        /*AccountContext = view.findViewById(R.id.AccountContext);
+        AccountPrice = view.findViewById(R.id.AccountPrice);*/
         dateDisplay = (TextView) view.findViewById(R.id.dateDisplay);
         dateDisplay.setText(result);
+        accountAdd = (ImageButton) view.findViewById(R.id.account_add);
+
 
         ImageButton pickDate = (ImageButton) view.findViewById(R.id.pickDate);
         Calendar cal = new GregorianCalendar();
@@ -70,7 +88,15 @@ public class Fragment3 extends Fragment {
 
 
         });
-        return view;
+
+        accountAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent account = new Intent(getActivity(),account_make.class);
+                startActivity(account);
+            }
+        });
+               return view;
     }
 
 }
