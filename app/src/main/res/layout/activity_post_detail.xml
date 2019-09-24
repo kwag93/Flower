@@ -15,7 +15,7 @@
             android:id="@+id/postName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="가나다"
+            android:text="글제목"
             android:textSize="20dp"/>
 
     </LinearLayout>
@@ -30,7 +30,42 @@
             android:id="@+id/postText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="글내용"
             android:textSize="20dp"/>
     </LinearLayout>
+
+    <ListView
+
+        android:id="@+id/commentListView"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/commentWrite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.95"
+            android:text="댓글작성" />
+
+        <Button
+            android:id="@+id/commentSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:hint="작성"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
