@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PostActivity"></activity>
+        <activity android:name=".PostDetail"></activity>
+        <activity android:name=".PostActivity" />
         <activity android:name=".Event_make" />
         <activity android:name=".account_make" />
         <activity android:name=".MainActivity" />

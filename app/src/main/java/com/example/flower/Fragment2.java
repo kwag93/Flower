@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment2 extends Fragment {
+public class Fragment2 extends Fragment implements AdapterView.OnItemClickListener {
 
     private ListView boardListView;
     private BoardListAdapter adapter;
@@ -42,11 +42,17 @@ public class Fragment2 extends Fragment {
         boardListView.setAdapter(adapter);
         new BackgroundTask().execute();
 
-
+        boardListView.setOnItemClickListener(this);
 
         return view;
 
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), PostActivity.class);
+        startActivity(intent);
     }
 
 

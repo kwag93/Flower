@@ -1,8 +1,11 @@
 package com.example.flower;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -29,11 +32,19 @@ public class PostActivity extends AppCompatActivity {
 
         postListView = (ListView) findViewById(R.id.postListView);
         postList = new ArrayList<Post>();
-        postList.add(new Post("제목", "내용입니다", "0924"));
-
         adapter = new PostListAdapter(getApplicationContext(), postList);
         postListView.setAdapter(adapter);
 
+        postListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), PostDetail.class);
+
+                intent.putExtra("postName", postList.get(position).getName());
+                intent.putExtra("postText", postList.get(position).getText());
+                startActivity(intent);
+            }
+        });
         new BackgroundTask().execute();
 
     }
