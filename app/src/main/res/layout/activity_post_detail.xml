@@ -37,10 +37,9 @@
     <ListView
 
         android:id="@+id/commentListView"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="561dp"
+        android:layout_margin="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,18 +51,18 @@
         android:weightSum="1">
 
         <EditText
-            android:id="@+id/commentWrite"
+            android:id="@+id/commentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.95"
-            android:text="댓글작성" />
+            android:hint="댓글을 작성해주세요" />
 
         <Button
-            android:id="@+id/commentSend"
+            android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.05"
-            android:hint="작성"/>
+            android:text="작성"/>
 
     </LinearLayout>
 

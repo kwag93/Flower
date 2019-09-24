@@ -4,10 +4,19 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -24,7 +33,9 @@ public class PostDetail extends AppCompatActivity {
     private ListView commentListView;
     private CommentListAdapter adapter;
     private List<Comment> commentList;
-
+    private Button btn_send;
+    private EditText commentText;
+    private TextView postName,postText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +44,11 @@ public class PostDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        TextView postName = (TextView) findViewById(R.id.postName);
-        TextView postText = (TextView) findViewById(R.id.postText);
+        commentText = findViewById(R.id.postText);
+        btn_send = findViewById(R.id.btn_send);
+
+         postName =  findViewById(R.id.postName);
+         postText =  findViewById(R.id.postText);
 
         postName.setText(intent.getStringExtra("postName"));
         postText.setText(intent.getStringExtra("postText"));
@@ -44,7 +58,42 @@ public class PostDetail extends AppCompatActivity {
         adapter = new CommentListAdapter(getApplicationContext(), commentList);
         commentListView.setAdapter(adapter);
 
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {         //회원가입 버튼 클릭시 수행
+                //editText의 입력된 값을 get (가져오다)해옴
+                String text = commentText.getText().toString();
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if (success) { //댓글 등록 성공
+                                Toast.makeText(getApplicationContext(), "댓글 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                            } else { // 댓글 등록 실패
+                                Toast.makeText(getApplicationContext(), "댓글 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                //서버로 volley 를 이용하여 요청함
+                CommentRequest commentRequest = new CommentRequest(text, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(PostDetail.this);
+                queue.add(commentRequest);
+            }
+        });
+
         new BackgroundTask().execute();
+
+
+
     }
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
