@@ -97,6 +97,7 @@ public class Fragment2 extends Fragment {
                     boardDes = object.getString("boardDes");
                     Board board = new Board(boardName, boardDes);
                     boardList.add(board);
+                    adapter.notifyDataSetChanged();
                     count++;
                 }
             } catch (Exception e) {
