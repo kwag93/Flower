@@ -1,15 +1,8 @@
 package com.example.flower;
 
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -23,32 +16,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment2 extends Fragment {
+public class PostActivity extends AppCompatActivity {
 
-    private ListView boardListView;
-    private BoardListAdapter adapter;
-    private List<Board> boardList;
+    private ListView postListView;
+    private PostListAdapter adapter;
+    private List<Post> postList;
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag2, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_post);
 
-        boardListView = (ListView) view.findViewById(R.id.boardListView);
-        boardList = new ArrayList<Board>();
+        postListView = (ListView) findViewById(R.id.postListView);
+        postList = new ArrayList<Post>();
+        postList.add(new Post("제목", "내용입니다", "0924"));
 
-        adapter = new BoardListAdapter(getContext(), boardList);
-        boardListView.setAdapter(adapter);
+        adapter = new PostListAdapter(getApplicationContext(), postList);
+        postListView.setAdapter(adapter);
+
         new BackgroundTask().execute();
 
-
-
-        return view;
-
-
     }
-
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
 
@@ -56,7 +44,7 @@ public class Fragment2 extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            target = "http://ec2-3-229-83-86.compute-1.amazonaws.com:80/BoardList.php";
+            target = "http://ec2-3-229-83-86.compute-1.amazonaws.com:80/PostList.php";
         }
 
         @Override
@@ -93,13 +81,15 @@ public class Fragment2 extends Fragment {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
                 int count = 0;
-                String boardName, boardDes;
+                String postName, postText,postTime;
                 while (count < jsonArray.length()) {
                     JSONObject object = jsonArray.getJSONObject(count);
-                    boardName = object.getString("boardName");
-                    boardDes = object.getString("boardDes");
-                    Board board = new Board(boardName, boardDes);
-                    boardList.add(board);
+                    postName = object.getString("postName");
+                    postText = object.getString("postText");
+                    postTime = object.getString("postTime");
+
+                    Post post = new Post(postName, postText,postTime);
+                    postList.add(post);
                     adapter.notifyDataSetChanged();
                     count++;
                 }
@@ -108,4 +98,6 @@ public class Fragment2 extends Fragment {
             }
         }
     }
+
+
 }

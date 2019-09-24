@@ -10,13 +10,14 @@ import java.util.List;
 
 public class BoardListAdapter extends BaseAdapter {
 
+    private Context context;
+    private List<Board> boardList;
+
     public BoardListAdapter(Context context, List<Board> boardList) {
         this.context = context;
         this.boardList = boardList;
     }
 
-    private Context context;
-    private List<Board> boardList;
 
     @Override
     public int getCount() {
