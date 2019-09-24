@@ -42,14 +42,12 @@ public class Register extends AppCompatActivity {
         adapter1 = ArrayAdapter.createFromResource(this, R.array.type, android.R.layout.simple_spinner_dropdown_item);
         new_type.setAdapter(adapter1);
 
+        btn_register = findViewById(R.id.btn_register);
 
-
-
-        btn_register = findViewById(R.id.btn_register); //회원가입 버튼 클릭시 수행
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //edittext의 입력된 값을 get (가져오다)해옴
+            public void onClick(View view) {         //회원가입 버튼 클릭시 수행
+                //editText의 입력된 값을 get (가져오다)해옴
                 String email = new_email.getText().toString();
                 String password = new_pw.getText().toString();
                 String name = new_name.getText().toString();

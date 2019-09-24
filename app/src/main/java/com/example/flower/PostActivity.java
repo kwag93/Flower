@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -24,11 +25,14 @@ public class PostActivity extends AppCompatActivity {
     private ListView postListView;
     private PostListAdapter adapter;
     private List<Post> postList;
+    private Button btn_write;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+
 
         postListView = (ListView) findViewById(R.id.postListView);
         postList = new ArrayList<Post>();
@@ -45,7 +49,17 @@ public class PostActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         new BackgroundTask().execute();
+
+        btn_write = findViewById(R.id.btn_write);
+        btn_write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PostActivity.this, Post_make.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
