@@ -32,12 +32,11 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-
-
         postListView = (ListView) findViewById(R.id.postListView);
         postList = new ArrayList<Post>();
         adapter = new PostListAdapter(getApplicationContext(), postList);
         postListView.setAdapter(adapter);
+        btn_write = findViewById(R.id.btn_write);
 
         postListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,16 +49,16 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        new BackgroundTask().execute();
 
-        btn_write = findViewById(R.id.btn_write);
         btn_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PostActivity.this, Post_make.class);
-                startActivity(intent);
+                Intent PostMake = new Intent(PostActivity.this, Post_make.class);
+                startActivity(PostMake);
             }
         });
+
+        new BackgroundTask().execute();
 
     }
 

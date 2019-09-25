@@ -70,8 +70,8 @@ public class Event_make extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String type = event.getSelectedItem().toString();
-                String EndDate = end_date.getText().toString();
                 String Memo = memo.getText().toString();
+                String EndDate = end_date.getText().toString();
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -95,7 +95,7 @@ public class Event_make extends AppCompatActivity {
                     }
                 };
                 //서버로 volley 를 이용하여 요청함
-                EventRequest eventRequest = new EventRequest(type, EndDate, Memo, responseListener);
+                EventRequest eventRequest = new EventRequest(type, Memo, EndDate, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(Event_make.this);
                 queue.add(eventRequest);
 

@@ -102,6 +102,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#542513"/>
+        android:background="#901258"/>
 
 </LinearLayout>

@@ -2,8 +2,8 @@ package com.example.flower;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +18,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -42,16 +41,16 @@ public class PostDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
-        Intent intent = getIntent();
+        Intent PostMake = getIntent();
 
-        commentText = findViewById(R.id.postText);
+        commentText = findViewById(R.id.commentText);
         btn_send = findViewById(R.id.btn_send);
 
          postName =  findViewById(R.id.postName);
          postText =  findViewById(R.id.postText);
 
-        postName.setText(intent.getStringExtra("postName"));
-        postText.setText(intent.getStringExtra("postText"));
+        postName.setText(PostMake.getStringExtra("postName"));
+        postText.setText(PostMake.getStringExtra("postText"));
 
         commentListView = (ListView) findViewById(R.id.commentListView);
         commentList = new ArrayList<Comment>();

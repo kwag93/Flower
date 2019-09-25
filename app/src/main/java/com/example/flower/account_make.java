@@ -1,96 +1,103 @@
+
 package com.example.flower;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class account_make extends AppCompatActivity {
 
     private static final String TAG = "account_make";
-    private Button AccountSave;
-    private TextView AccountDate;
-    int mYear, mMonth, mDay;
+
+    TextView accountDate;
+    DatePicker date;
     EditText accountContext;
     EditText accountPrice;
-    ArrayList<String> account_item_list;
-    ArrayAdapter<String> account_adapter;
-
-
-
-    long now = System.currentTimeMillis();
-    Date date = new Date(now);      // birthday 버튼의 초기화를 위해 date 객체와 SimpleDataFormat 사용
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String result = dateFormat.format(date);
-
-    private void UpdateNow(){
-        AccountDate.setText(String.format("%d/%d/%d", mYear, mMonth + 1, mDay));
-    }
-
-
+    Button accountSave,lookup_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_make);
-        AccountDate = (TextView) findViewById(R.id.account_date);
-        AccountDate.setText(result);
+
+        accountDate = (TextView) findViewById(R.id.account_date);
+        date = findViewById(R.id.date);
+        lookup_date = findViewById(R.id.lookup_date);
         accountContext = (EditText) findViewById(R.id.account_context);
         accountPrice = (EditText) findViewById(R.id.account_price);
+        accountSave = (Button) findViewById(R.id.account_save);
 
-        account_item_list = new ArrayList<String>();
-        account_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, account_item_list);
+        date.init(date.getYear(), date.getMonth(), date.getDayOfMonth(),
 
-        Calendar cal = new GregorianCalendar();
-        mYear = cal.get(Calendar.YEAR);
-        mMonth = cal.get(Calendar.MONTH);
-        mDay = cal.get(Calendar.DAY_OF_MONTH);
+                new DatePicker.OnDateChangedListener() {
+                    //값이 바뀔때마다 텍스트뷰의 값을 바꿔준다.
 
-        UpdateNow();
+                    @Override
+                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-        AccountDate.setOnClickListener(new View.OnClickListener() {
+                        // TODO Auto-generated method stub
+                        //monthOfYear는 0값이 1월을 뜻하므로 1을 더해줌 나머지는 같다.
+                        accountDate.setText(String.format("%d%d%d", year,monthOfYear + 1, dayOfMonth));
+                    }
+                });
+
+        lookup_date.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                String result = String.format("%d년 %d월 %d일을 선택하였습니다", date.getYear(), date.getMonth() + 1, date.getDayOfMonth());
+                Toast.makeText(account_make.this, result, Toast.LENGTH_SHORT).show();
 
-                new DatePickerDialog(account_make.this, mDateSetListener, mYear, mMonth, mDay).show();
             }
-
-            DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    mYear = year;
-                    mMonth = monthOfYear;
-                    mDay = dayOfMonth;
-                    //텍스트뷰의 값을 업데이트함
-                    UpdateNow();
-                }
-            };
-
-
         });
 
-        AccountSave = (Button) findViewById(R.id.account_save);
-        AccountSave.setOnClickListener(new View.OnClickListener() {
+
+        accountSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                String str1= accountContext.getText().toString();
-                String str2= accountPrice.getText().toString();
-                account_item_list.add(str1);
-                account_item_list.add(str2);
-                account_adapter.notifyDataSetChanged();
-                finish();
+                String history= accountContext.getText().toString();
+                String price= accountPrice.getText().toString();
+                String date= accountDate.getText().toString();
+
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if (success) { //성공
+                                Toast.makeText(getApplicationContext(), "추가 성공하였습니다.", Toast.LENGTH_SHORT).show();
+
+                            } else { // 실패
+                                Toast.makeText(getApplicationContext(), "추가하지 못했습니다.", Toast.LENGTH_SHORT).show();
+                                return ;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                //서버로 volley 를 이용하여 요청함
+                AccountRequest accountRequest = new AccountRequest(history, price, date, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(account_make.this);
+                queue.add(accountRequest);
+
             }
         });
     }

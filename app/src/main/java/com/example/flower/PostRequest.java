@@ -15,13 +15,13 @@ public class PostRequest extends StringRequest {
     private Map<String, String> map;
 
 
-    public PostRequest(String postName, String postText, Response.Listener<String> listener){
+    public PostRequest(String subject, String text, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
 
 
         map = new HashMap<>();
-        map.put("postName",postName);
-        map.put("postText",postText);
+        map.put("subject",subject);
+        map.put("text",text);
 
     }
 
