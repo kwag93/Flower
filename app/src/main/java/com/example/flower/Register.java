@@ -42,6 +42,9 @@ public class Register extends AppCompatActivity {
         adapter1 = ArrayAdapter.createFromResource(this, R.array.type, android.R.layout.simple_spinner_dropdown_item);
         new_type.setAdapter(adapter1);
 
+        adapter2 = ArrayAdapter.createFromResource(Register.this, R.array.area, android.R.layout.simple_spinner_dropdown_item);
+        new_area.setAdapter(adapter2);
+
         btn_register = findViewById(R.id.btn_register);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -55,8 +58,6 @@ public class Register extends AppCompatActivity {
                 String enlist_end_date = new_enddate.getText().toString();
                 String type = new_type.getSelectedItem().toString();
 
-                adapter2 = ArrayAdapter.createFromResource(Register.this, R.array.type, android.R.layout.simple_spinner_dropdown_item);
-                new_area.setAdapter(adapter2);
                 String region = new_area.getSelectedItem().toString();
 
 
