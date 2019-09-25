@@ -27,16 +27,20 @@ public class Fragment3 extends Fragment {
 
     private View view;
     ImageButton accountAdd;
-    private ListView AccountListView;
-    private AccountListAdapter Account_adapter;
+    private ListView accountListView;
+    private AccountListAdapter adapter;
     private List<Account> accountList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.frag3, container, false);
-        AccountListView = (ListView) view.findViewById(R.id.accountListView);
+
+        accountListView = (ListView) view.findViewById(R.id.accountListView);
         accountList = new ArrayList<Account>();
+
+        adapter = new AccountListAdapter(getContext(), accountList);
+        accountListView.setAdapter(adapter);
 
         accountAdd = (ImageButton) view.findViewById(R.id.account_add);
         accountAdd.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +50,7 @@ public class Fragment3 extends Fragment {
                 startActivity(intent);
             }
         });
+
         new BackgroundTask().execute();
 
         return view;
@@ -100,10 +105,9 @@ public class Fragment3 extends Fragment {
                     history = object.getString("history");
                     price = object.getString("price");
                     date = object.getString("date");
-
                     Account account = new Account(history, price, date);
                     accountList.add(account);
-                    Account_adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                     count++;
                 }
             } catch (Exception e) {

@@ -10,7 +10,7 @@ import java.util.Map;
 public class AccountRequest extends StringRequest {
 
     //서버 URL 설정 (PHP 연동)
-    final  static private String URL = "http://ec2-3-229-83-86.compute-1.amazonaws.com:80/account.php"; //인스턴스 주소값/php파일
+    final  static private String URL = "http://ec2-3-229-83-86.compute-1.amazonaws.com:80/AccountMake.php"; //인스턴스 주소값/php파일
     private Map<String, String> map;
 
 
