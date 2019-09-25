@@ -2,41 +2,39 @@ package com.example.flower;
 
 public class Account {
 
-    String account_context;
-    String account_price;
-    String account_date;
+    String history;
+    String price;
+    String date;
 
-    public Account(String account_context, String account_price, String account_date) {
-        this.account_context = account_context;
-        this.account_price = account_price;
-        this.account_date = account_date;
+    public Account(String history, String price, String date) {
+        this.history = history;
+        this.price = price;
+        this.date = date;
     }
 
-    public String getAccount_context() {
-        return account_context;
+    public String getHistory() {
+        return history;
     }
 
-    public void setAccount_context(String account_context) {
-        this.account_context = account_context;
+    public void setHistory(String history) {
+        this.history = history;
     }
 
-    public String getAccount_price() {
-        return account_price;
+    public String getPrice() {
+        return price;
     }
 
-    public void setAccount_price(String account_price) {
-        this.account_price = account_price;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getAccount_date() {
-        return account_date;
+    public String getDate() {
+        return date;
     }
 
-    public void setAccount_date(String account_date) {
-        this.account_date = account_date;
+    public void setDate(String date) {
+        this.date = date;
     }
+
 
 }
-
-
-

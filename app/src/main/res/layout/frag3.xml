@@ -98,10 +98,10 @@
 
 
     <ListView
-        android:id="@+id/account_list"
+        android:id="@+id/accountListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#901258"/>
+        android:background="#FFF5C3"/>
 
 </LinearLayout>

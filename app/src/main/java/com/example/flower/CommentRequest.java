@@ -15,12 +15,12 @@ public class CommentRequest extends StringRequest {
     private Map<String, String> map;
 
 
-    public CommentRequest(String commentText, Response.Listener<String> listener){
+    public CommentRequest(String text, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
 
 
         map = new HashMap<>();
-        map.put("commentText",commentText);
+        map.put("text",text);
 
     }
 

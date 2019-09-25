@@ -59,7 +59,7 @@ public class PostDetail extends AppCompatActivity {
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {         //회원가입 버튼 클릭시 수행
+            public void onClick(View view) {
                 //editText의 입력된 값을 get (가져오다)해옴
                 String text = commentText.getText().toString();
 
