@@ -42,6 +42,7 @@ public class Fragment2 extends Fragment implements AdapterView.OnItemClickListen
         boardListView.setAdapter(adapter);
         new BackgroundTask().execute();
 
+
         boardListView.setOnItemClickListener(this);
 
         return view;

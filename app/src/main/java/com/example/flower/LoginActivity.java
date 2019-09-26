@@ -22,11 +22,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText new_email, new_pw;
     private Button btn_login, btn_register;
     private CheckBox checkBox;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
 
         checkBox = findViewById(R.id.checkBox);
@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //editText에 입력된 값을 가져온다.
+
                 String email = new_email.getText().toString();
                 String password = new_pw.getText().toString();
 
@@ -75,10 +76,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                 Toast.makeText(getApplicationContext(),"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-/*
                                 intent.putExtra("email",email);
-                                intent.putExtra("password",password);
-*/
+
                                 LoginActivity.this.startActivity(intent);
                                 finish();
                             }else{ // 로그인 실패

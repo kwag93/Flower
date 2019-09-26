@@ -1,9 +1,11 @@
 package com.example.flower;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +22,16 @@ public class MainActivity extends AppCompatActivity {
     private Fragment4 frag4;
     private Fragment5 frag5;
     public static Context FragmentContext;
-
+    public String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+
 
         FragmentContext = this;
 
@@ -71,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
             case 0:
                 ft.replace(R.id.main_frame,frag1);
                 ft.commit();
+                Bundle bundle = new Bundle(1);
+                bundle.putString("email", email);
+                frag1.setArguments(bundle);
                 break;
             case 1:
                 ft.replace(R.id.main_frame,frag2);
